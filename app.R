@@ -1,6 +1,8 @@
 ##############################################################
 #  Init
 ##############################################################
+Sys.setenv(TZ = "Asia/Tokyo")
+
 library(shiny)
 library(shinydashboard)
 library(dplyr)
@@ -87,8 +89,6 @@ server <- function(input, output, session) {
       value$realtimeData <- realtimeData[["USDJPYhour"]]["2016-01-01::"]
       price <- na.omit(realtimeData[["USDJPYhour"]][paste0(substr(Sys.time() - 60 * 60 * 24 * 7, 1,10),"::")])
       value$price <- price
-      
-      
     })
     
     withProgress(value = 0,message = 'Now predicting',{
@@ -144,13 +144,13 @@ server <- function(input, output, session) {
   }
   
   calculateEveryHour()
-  observe({
-    invalidateLater(1000 * 60, session)
-    if(substr(Sys.time(),15,16) == "02"){
-      calculateEveryHour()
-    }
-  })
-  
+  # observe({
+  #   invalidateLater(1000 * 60, session)
+  #   if(substr(Sys.time(),15,16) == "02"){
+  #     calculateEveryHour()
+  #   }
+  # })
+
   output$predict_table <- renderDataTable({
     datatable(value$hour.df, rownames = FALSE,
               options = list( columnDefs = list(list(className = 'dt-body-right',  targets = 3:5),
