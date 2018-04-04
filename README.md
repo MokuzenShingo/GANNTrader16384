@@ -8,4 +8,4 @@ The prediction algorithm of this system has been modified for paper algorithm.
 
 ## Demo site
 
-https://mokuzenshingo.shinyapps.io/ganntrader/
+https://mokuzenshingo.shinyapps.io/GANNTraderDashIo/
